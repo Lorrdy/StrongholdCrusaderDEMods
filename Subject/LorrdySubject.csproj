@@ -1,0 +1,77 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net481</TargetFramework>
+        <OutputType>Library</OutputType>
+        <LangVersion>latest</LangVersion>
+        
+        <UnityLibsPath>G:\SteamLibrary\steamapps\common\Stronghold Crusader Definitive Edition</UnityLibsPath>
+        <GUID>LorrdySubject</GUID>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(UnityLibsPath)\Stronghold Crusader Definitive Edition_Data\Managed\Assembly-CSharp.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+
+        <Reference Include="BepInEx">
+            <HintPath>$(UnityLibsPath)\BepInEx\core\BepInEx.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+
+        <Reference Include="R3">
+            <HintPath>$(UnityLibsPath)\BepInEx\plugins\000shcdese\R3.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+
+        <Reference Include="Noesis.NoesisGUI">
+            <HintPath>$(UnityLibsPath)\Stronghold Crusader Definitive Edition_Data\Managed\Noesis.NoesisGUI.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+
+        <Reference Include="SHCDESE">
+            <HintPath>$(UnityLibsPath)\BepInEx\plugins\000shcdese\SHCDESE.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+
+        <Reference Include="UnityEngine">
+            <HintPath>$(UnityLibsPath)\Stronghold Crusader Definitive Edition_Data\Managed\UnityEngine.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(UnityLibsPath)\Stronghold Crusader Definitive Edition_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Memory">
+            <HintPath>$(UnityLibsPath)\BepInEx\plugins\000shcdese\System.Memory.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="Override\**\*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>Override\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+        </None>
+        <None Include="info.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>info.json</TargetPath>
+        </None>
+    </ItemGroup>
+
+    <Target Name="CopyPluginFiles" AfterTargets="Build">
+        <ItemGroup>
+            <PluginFiles Include="$(TargetDir)**\*" />
+        </ItemGroup>
+
+        <Copy
+            SourceFiles="@(PluginFiles)"
+            DestinationFiles="@(PluginFiles->'$(ProjectDir)BepInEx\plugins\$(GUID)\%(RecursiveDir)%(Filename)%(Extension)')" />
+    </Target>
+</Project>
