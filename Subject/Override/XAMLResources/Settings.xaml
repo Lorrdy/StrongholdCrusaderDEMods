@@ -123,7 +123,7 @@
 
                 <TextBlock Grid.Row="3"
                            Grid.Column="0"
-                           Text="Food for getting subjugated"
+                           Text="Food"
                            Foreground="White"
                            VerticalAlignment="Center"
                            Margin="0,5"/>
