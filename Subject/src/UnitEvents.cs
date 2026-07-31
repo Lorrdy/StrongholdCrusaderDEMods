@@ -23,6 +23,10 @@ namespace LorrdySubject
 
         private static void HandleUnitTakeDamage(int attackedUnit, int attackingUnit)
         {
+            //If mod isn't enabled, just do nothing
+            if (!Plugin.LobbySettingsViewModel.ModEnabled)
+                return;
+            
             GameUnitManagerAPI unitManager = GameUnitManagerAPI.Instance;
             eChimps type = unitManager.GetType(attackedUnit);
             if (type == eChimps.CHIMP_TYPE_LORD)

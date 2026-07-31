@@ -6,7 +6,7 @@
         <LangVersion>latest</LangVersion>
         
         <UnityLibsPath>G:\SteamLibrary\steamapps\common\Stronghold Crusader Definitive Edition</UnityLibsPath>
-        <GUID>LorrdyAIShareGold</GUID>
+        <GUID>LorrdyAISharesGold</GUID>
     </PropertyGroup>
 
 
@@ -55,9 +55,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="Assets\GUI\Sprites\$(GUID).png">
+        <None Include="Override\**\*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>Override\Assets\GUI\Sprites\$(GUID).png</TargetPath>
+            <TargetPath>Override\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
         </None>
         <None Include="info.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

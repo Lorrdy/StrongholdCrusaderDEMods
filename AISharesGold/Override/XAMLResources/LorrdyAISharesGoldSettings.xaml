@@ -5,8 +5,8 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10">
 
-            <!-- Gold Settings -->
-            <TextBlock Text="SUBJUGATION REWARD"
+            <!-- Player setting -->
+            <TextBlock Text="GENERAL SETTINGS"
                        Foreground="#77AAFF"
                        FontWeight="Bold"
                        Margin="0,0,0,10"/>
@@ -20,33 +20,43 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0"
                            Grid.Column="0"
-                           Text="Gold"
+                           Text="Mod enabled"
                            Foreground="White"
                            VerticalAlignment="Center"
                            Margin="0,5"/>
 
-                <TextBox Grid.Row="0"
-                         Grid.Column="2"
-                         Width="80"
-                         Margin="0,5"
-                         Text="{Binding GoldForSubjugating, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
-                         Foreground="White"
-                         Background="#333355"
-                         BorderBrush="#555577"
-                         Padding="4,2"
-                         ui:KeyboardCaptureBinding.Enabled="{Binding IsHost}"/>
+                <CheckBox Grid.Row="0"
+                            Grid.Column="2"
+                            IsChecked="{Binding ModEnabled}"
+                            Foreground="White"
+                            Margin="0,5"
+                            IsEnabled="{Binding IsHost}"/>
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="Show a message each time"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           Margin="0,5"/>
+
+                <CheckBox Grid.Row="1"
+                            Grid.Column="2"
+                            IsChecked="{Binding ShowMessage}"
+                            Foreground="White"
+                            Margin="0,5"
+                            IsEnabled="{Binding IsHost}"/>
             </Grid>
 
-
+            
             <Separator Background="#444466" Margin="0,10"/>
 
-
-            <!-- Subjugation Rewards -->
-            <TextBlock Text="REBUILD GOODS AFTER GETTING SUBJUGATED"
+            <!-- Gold Settings -->
+            <TextBlock Text="GOLD SETTINGS"
                        Foreground="#77AAFF"
                        FontWeight="Bold"
                        Margin="0,0,0,10"/>
@@ -62,12 +72,11 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0"
                            Grid.Column="0"
-                           Text="Gold"
+                           Text="Minimum gold to share with others"
                            Foreground="White"
                            VerticalAlignment="Center"
                            Margin="0,5"/>
@@ -76,7 +85,7 @@
                          Grid.Column="2"
                          Width="80"
                          Margin="0,5"
-                         Text="{Binding GoldForGettingSubjugated, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
+                         Text="{Binding MinGoldToShare, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
                          Foreground="White"
                          Background="#333355"
                          BorderBrush="#555577"
@@ -85,7 +94,7 @@
 
                 <TextBlock Grid.Row="1"
                            Grid.Column="0"
-                           Text="Wood"
+                           Text="Maxmium gold to get money"
                            Foreground="White"
                            VerticalAlignment="Center"
                            Margin="0,5"/>
@@ -94,7 +103,7 @@
                         Grid.Column="2"
                         Width="80"
                         Margin="0,5"
-                        Text="{Binding WoodForGettingSubjugated, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
+                        Text="{Binding MaxGoldToGet, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
                         Foreground="White"
                         Background="#333355"
                         BorderBrush="#555577"
@@ -104,7 +113,7 @@
 
                 <TextBlock Grid.Row="2"
                            Grid.Column="0"
-                           Text="Stone"
+                           Text="Amount of gold send"
                            Foreground="White"
                            VerticalAlignment="Center"
                            Margin="0,5"/>
@@ -113,26 +122,7 @@
                          Grid.Column="2"
                          Width="80"
                          Margin="0,5"
-                         Text="{Binding StoneForGettingSubjugated, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
-                         Foreground="White"
-                         Background="#333355"
-                         BorderBrush="#555577"
-                         Padding="4,2"
-                         ui:KeyboardCaptureBinding.Enabled="{Binding IsHost}"/>
-
-
-                <TextBlock Grid.Row="3"
-                           Grid.Column="0"
-                           Text="Food"
-                           Foreground="White"
-                           VerticalAlignment="Center"
-                           Margin="0,5"/>
-
-                <TextBox Grid.Row="3"
-                         Grid.Column="2"
-                         Width="80"
-                         Margin="0,5"
-                         Text="{Binding FoodForGettingSubjugated, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
+                         Text="{Binding GoldAmountToShare, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
                          Foreground="White"
                          Background="#333355"
                          BorderBrush="#555577"
@@ -140,7 +130,6 @@
                          ui:KeyboardCaptureBinding.Enabled="{Binding IsHost}"/>
 
             </Grid>
-
         </StackPanel>
     </ScrollViewer>
 </Grid>

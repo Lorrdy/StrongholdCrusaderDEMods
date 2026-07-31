@@ -51,7 +51,7 @@ echo !EXTENDER_DIR!
 echo.
 
 pushd "%PROJECT_DIR%"
-%MSBUILD% build LorrdyAIShareGold.csproj ^
+%MSBUILD% build LorrdyAISharesGold.csproj ^
  /p:Configuration=Debug ^
  /p:GameDir="%GAME_DIR%" ^
  /p:ExtenderDir="%EXTENDER_DIR%"
@@ -62,7 +62,7 @@ echo.
 if "%BUILD_EXIT_CODE%"=="0" (
   echo Build erfolgreich.
   echo Kopiere Plugin in den Spielordner...
-  set "PLUGIN_NAME=LorrdyAIShareGold"
+  set "PLUGIN_NAME=LorrdyAISharesGold"
   set "LOCAL_PLUGIN_DIR=%PROJECT_DIR%BepInEx\plugins\!PLUGIN_NAME!"
   set "GAME_PLUGIN_DIR=%GAME_DIR%\BepInEx\plugins\!PLUGIN_NAME!"
 

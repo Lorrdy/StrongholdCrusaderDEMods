@@ -430,3 +430,5 @@ FodyWeavers.xsd
 
 #Extras from me
 BepInEx/
+workshop/
+tools/

@@ -6,17 +6,13 @@ using SHCDESE.API.Logging;
 using System;
 using SHCDESE.API.Components.Timer;
 
-namespace LorrdyAIShareGold
+namespace LorrdyAISharesGold
 {
     internal static class ShareGold
     {
         // Create once per class (usually as a static field)
         private static readonly Lazy<ModLogHelper> _log = new Lazy<ModLogHelper>(() => ModLoggerFactory.CreateHelper("LorrdyAIShareGold"));
         private static ModLogHelper Log => _log.Value;
-
-        private const uint MAX_TO_GET = 2000;
-        private const uint MIN_TO_SEND = 20000;
-        private const int AMOUNT_TO_GIVE = 2000;
 
         private const string CALLBACK_NAME = "LorrdyAIShareGold_Timer";
 
@@ -33,64 +29,68 @@ namespace LorrdyAIShareGold
             TimerEngine timerEngine = GameTimeManagerAPI.Instance.GetTimerEngine();
 
             // Schedule the savable timer.
-            string timerHandle = timerEngine.AddRepeatedAction(2000, OnTimerCallback, CALLBACK_NAME);
+            string timerHandle = timerEngine.AddRepeatedAction(5000, OnTimerCallback, CALLBACK_NAME);
         }
 
         internal static void OnTimerCallback() 
         {
             GamePlayerManagerAPI playerManager = GamePlayerManagerAPI.Instance;
             int[] playersID = playerManager.GetAlivePlayerIds();
-            //TODO starts with 0, but player 0 is not real for some reason
-            uint[] playersGold = new uint[playersID.Length];
 
-            Log.Information("Timer callback");
-            Log.Information($"Found {playersID.Length} players");
+            //TODO playersID starts with 0, but player 0 is not real
+            for (int i = 0; i < playersID.Length; i++)
+            {
+                playersID[i] = playersID[i] + 1;
+            }
+
+            uint[] playersGold = new uint[playersID.Length];
 
             for (int i = 0; i < playersID.Length; i++)
             {
                 playersGold[i] = playerManager.GetPlayerGold(playersID[i]);
-                Log.Information($"{i}: {playersGold[i]}");
             }
 
             for (int i = 0; i < playersID.Length; i++)
             {
-                if (playerManager.IsAIPlayer(playersID[i]) && playersGold[i] > MIN_TO_SEND)
+                if (playerManager.IsAIPlayer(playersID[i]) && playersGold[i] > Plugin.LobbySettingsViewModel.MinGoldToShare)
                 {
                     for (int j = 0; j < playersID.Length; j++)
                     {
                         if (i == j)
                             continue;
 
-                        if (isSameTeam(playersID[i], playersID[j]) &&
-                            playerManager.IsAIPlayer(playersID[j]) && playersGold[j] < MAX_TO_GET)
+                        if (playerManager.IsPlayerAlliedTo(playersID[i], playersID[j]) &&
+                            playerManager.IsAIPlayer(playersID[j]) && playersGold[j] < Plugin.LobbySettingsViewModel.MaxGoldToGet)
                         {
                             HandleGiveGold(playersID[i], playersID[j]);
-                            HandleGiveGoldMessage(playersID[i], playersID[j]);
+                            
+                            if (Plugin.LobbySettingsViewModel.ShowMessage)
+                            {
+                                HandleGiveGoldMessage(playersID[i], playersID[j]);
+                            }
                         }
                     }
                 }
             }
         }
 
-        private static bool isSameTeam(int id1, int id2)
-        {
-            GamePlayerManagerAPI playerManagerAPI = GamePlayerManagerAPI.Instance;
-            return playerManagerAPI.GetPlayerTeam(id1) == playerManagerAPI.GetPlayerTeam(id2);
-        }
-
         private static void HandleGiveGold(int from, int to)
         {
             GamePlayerManagerAPI playerManager = GamePlayerManagerAPI.Instance;
-            playerManager.AddPlayerGold(from, -AMOUNT_TO_GIVE);
-            playerManager.AddPlayerGold(to, AMOUNT_TO_GIVE);
+            int amount = Plugin.LobbySettingsViewModel.GoldAmountToShare;
+            playerManager.AddPlayerGold(from, -amount);
+            playerManager.AddPlayerGold(to, amount);
+
+            Log.Information($"Player {from} sends {amount} to {to}.");
         }
 
         private static void HandleGiveGoldMessage(int fromId, int toId)
         {
             string fromName = GetPlayerNameById(fromId);
             string toName = GetPlayerNameById(toId);
+            int amount = Plugin.LobbySettingsViewModel.GoldAmountToShare;
 
-            LuaNetworkAPI.SendIngameChatLocal(message: $"sends {toName} {AMOUNT_TO_GIVE} gold.",
+            LuaNetworkAPI.SendIngameChatLocal(message: $"sends {amount} gold to {toName}.",
                 fromName: fromName,
                 fromPlayerId: fromId,
                 duration: 20);

@@ -15,6 +15,10 @@ namespace LorrdySubject
             int attackedUnitPlayerId = unitManager.GetOwner(attackedUnit);
             int attackingUnitPlayerId = unitManager.GetOwner(attackingUnit);
 
+            //If lord is from a human player and humans can't be subjugated, return and let him die
+            if (!GamePlayerManagerAPI.Instance.IsAIPlayer(attackedUnitPlayerId) && !Plugin.LobbySettingsViewModel.HumansCanBeSubjugated)
+                return;
+
             int maxHealth = unitManager.GetMaxHealth(attackedUnit);
             int currentHealth = unitManager.GetCurrentHealth(attackedUnit);
             int minHealth = maxHealth / 4; // 25% of default health

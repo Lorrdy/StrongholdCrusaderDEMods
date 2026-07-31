@@ -10,7 +10,7 @@ using System;
 namespace LorrdySubject
 {
     [BepInDependency("000shcdese", BepInDependency.DependencyFlags.HardDependency)]
-    [BepInPlugin("LorrdySubject", "Lorrdy Subject", "1.0.3")]
+    [BepInPlugin("LorrdySubject", "Lorrdy Subject", "1.0.4")]
     public class Plugin : BaseUnityPlugin
     {
         public static LobbySettingsViewModel LobbySettingsViewModel { get; private set; }
@@ -25,7 +25,7 @@ namespace LorrdySubject
                 plugin: this,
                 modName: "Lorrdy Subject",
                 viewModel: LobbySettingsViewModel,
-                xamlSourceFile:"XAMLResources/Settings.xaml"
+                xamlSourceFile:"XAMLResources/LorrdySubjectSettings.xaml"
             );
             
             // Wait for the C++ library to be ready

@@ -1,9 +1,9 @@
 {
-  "GUID": "LorrdyAIShareGold",
+  "GUID": "LorrdyAISharesGold",
   "Author": "Lorrdy",
-  "Name": "Lorrdy AI Share Gold",
+  "Name": "Lorrdy AI Shares Gold",
   "Description": "Make AI lords share their gold with their allies if they have enough.",
-  "Version": "1.0.0",
+  "Version": "1.0.1",
   "Website": "https://github.com/Lorrdy/StrongholdCrusaderDEMods",
   "Manifest": 1
 }

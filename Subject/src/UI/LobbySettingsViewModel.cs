@@ -13,6 +13,32 @@ public class LobbySettingsViewModel : LobbyModSettingsBaseViewModel
     // -------------------------------------------------------------------------
 
     [SyncHostOnly]
+    public bool ModEnabled
+    {
+        get => _modEnabled;
+        set
+        {
+            _modEnabled = value;
+            OnPropertyChanged(nameof(ModEnabled));
+        }
+    }
+    private bool _modEnabled = true;
+
+
+    [SyncHostOnly]
+    public bool HumansCanBeSubjugated
+    {
+        get => _humansCanBeSubjugated;
+        set
+        {
+            _humansCanBeSubjugated = value;
+            OnPropertyChanged(nameof(HumansCanBeSubjugated));
+        }
+    }
+    private bool _humansCanBeSubjugated = false;
+
+
+    [SyncHostOnly]
     public int GoldForSubjugating
     {
         get => _goldForSubjugating;
