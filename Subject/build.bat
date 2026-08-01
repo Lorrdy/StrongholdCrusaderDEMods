@@ -15,23 +15,23 @@ if not exist "%GAME_DIR%\BepInEx\core\BepInEx.dll" (
   exit /b 1
 )
 
-if not exist "%EXTENDER_DIR%\SHCDESE.dll" (
+if not exist "%GAME_SCRIPT_EXTENDER_DIR%\SHCDESE.dll" (
   echo SHCDESE.dll wurde nicht gefunden:
-  echo !EXTENDER_DIR!\SHCDESE.dll
+  echo !GAME_SCRIPT_EXTENDER_DIR!\SHCDESE.dll
   echo.
   pause
   exit /b 1
 )
 
 echo Verwende Script Extender Referenzen:
-echo !EXTENDER_DIR!
+echo !GAME_SCRIPT_EXTENDER_DIR!
 echo.
 
 pushd "%PROJECT_DIR%"
 %MSBUILD% build LorrdySubject.csproj ^
  /p:Configuration=Debug ^
  /p:GameDir="%GAME_DIR%" ^
- /p:ExtenderDir="%EXTENDER_DIR%"
+ /p:ExtenderDir="%GAME_SCRIPT_EXTENDER_DIR%"
 set "BUILD_EXIT_CODE=%ERRORLEVEL%"
 popd
 
