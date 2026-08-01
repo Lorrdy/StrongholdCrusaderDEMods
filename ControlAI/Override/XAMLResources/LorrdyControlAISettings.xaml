@@ -1,0 +1,79 @@
+<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ui="clr-namespace:SHCDESE.UI;assembly=SHCDESE">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
+
+            <!-- Player setting -->
+            <TextBlock Text="GENERAL SETTINGS"
+                       Foreground="#77AAFF"
+                       FontWeight="Bold"
+                       Margin="0,0,0,10"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Text="Mod enabled"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           Margin="0,5"/>
+
+                <CheckBox Grid.Row="0"
+                            Grid.Column="2"
+                            IsChecked="{Binding ModEnabled}"
+                            Foreground="White"
+                            Margin="0,5"
+                            IsEnabled="{Binding IsHost}"/>
+            </Grid>
+            
+            <Separator Background="#444466" Margin="0,10"/>
+
+            <!-- Subjugating Rewards -->
+            <TextBlock Text="MORE SETTINGS"
+                       Foreground="#77AAFF"
+                       FontWeight="Bold"
+                       Margin="0,0,0,10"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Text="Pick a number"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           Margin="0,5"/>
+
+                <TextBox Grid.Row="0"
+                         Grid.Column="2"
+                         Width="80"
+                         Margin="0,5"
+                         Text="{Binding NumberToPick, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
+                         Foreground="White"
+                         Background="#333355"
+                         BorderBrush="#555577"
+                         Padding="4,2"
+                         ui:KeyboardCaptureBinding.Enabled="{Binding IsHost}"/>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Grid>
