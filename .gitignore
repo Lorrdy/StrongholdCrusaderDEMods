@@ -432,3 +432,4 @@ FodyWeavers.xsd
 BepInEx/
 workshop/
 tools/
+config.local.bat

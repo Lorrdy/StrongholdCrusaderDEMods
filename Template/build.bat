@@ -1,14 +1,11 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 
+call "%~dp0..\config.local.bat"
+
 set "PROJECT_DIR=%~dp0"
 set "MSBUILD=dotnet"
-set "GAME_DIR=G:\SteamLibrary\steamapps\common\Stronghold Crusader Definitive Edition"
-set "LOCAL_SCRIPT_EXTENDER_ROOT=%PROJECT_DIR%..\shcde-script-extender"
-set "LOCAL_SCRIPT_EXTENDER_MOD_OUTPUT=%LOCAL_SCRIPT_EXTENDER_ROOT%\mod_output\000shcdese"
-set "LOCAL_SCRIPT_EXTENDER_BUILD_OUTPUT=%LOCAL_SCRIPT_EXTENDER_ROOT%\src\SHCDESE.BepInEx\bin\net481"
 set "GAME_SCRIPT_EXTENDER_DIR=%GAME_DIR%\BepInEx\plugins\000shcdese"
-set "EXTENDER_DIR="
 
 if not exist "%GAME_DIR%\BepInEx\core\BepInEx.dll" (
   echo BepInEx.dll wurde im Spielordner nicht gefunden:
@@ -18,43 +15,23 @@ if not exist "%GAME_DIR%\BepInEx\core\BepInEx.dll" (
   exit /b 1
 )
 
-if exist "%LOCAL_SCRIPT_EXTENDER_ROOT%\" (
-  if exist "%LOCAL_SCRIPT_EXTENDER_BUILD_OUTPUT%\SHCDESE.dll" (
-    set "EXTENDER_DIR=%LOCAL_SCRIPT_EXTENDER_BUILD_OUTPUT%"
-  ) else if exist "%LOCAL_SCRIPT_EXTENDER_MOD_OUTPUT%\SHCDESE.dll" (
-    set "EXTENDER_DIR=%LOCAL_SCRIPT_EXTENDER_MOD_OUTPUT%"
-  ) else (
-    echo Lokaler Script Extender Nebenordner wurde gefunden:
-    echo !LOCAL_SCRIPT_EXTENDER_ROOT!
-    echo.
-    echo Aber es wurde keine lokale SHCDESE.dll gefunden.
-    echo Baue zuerst ..\shcde-script-extender\build.bat oder entferne den Nebenordner,
-    echo wenn gegen die installierte Spiel-DLL kompiliert werden soll.
-    echo.
-    pause
-    exit /b 1
-  )
-) else (
-  set "EXTENDER_DIR=%GAME_SCRIPT_EXTENDER_DIR%"
-)
-
-if not exist "%EXTENDER_DIR%\SHCDESE.dll" (
+if not exist "%GAME_SCRIPT_EXTENDER_DIR%\SHCDESE.dll" (
   echo SHCDESE.dll wurde nicht gefunden:
-  echo !EXTENDER_DIR!\SHCDESE.dll
+  echo !GAME_SCRIPT_EXTENDER_DIR!\SHCDESE.dll
   echo.
   pause
   exit /b 1
 )
 
 echo Verwende Script Extender Referenzen:
-echo !EXTENDER_DIR!
+echo !GAME_SCRIPT_EXTENDER_DIR!
 echo.
 
 pushd "%PROJECT_DIR%"
 %MSBUILD% build __GUID__.csproj ^
  /p:Configuration=Debug ^
  /p:GameDir="%GAME_DIR%" ^
- /p:ExtenderDir="%EXTENDER_DIR%"
+ /p:ExtenderDir="%GAME_SCRIPT_EXTENDER_DIR%"
 set "BUILD_EXIT_CODE=%ERRORLEVEL%"
 popd
 
