@@ -1,10 +1,9 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 
-call "%~dp0..\config.local.bat"
-
 set "PROJECT_DIR=%~dp0"
 set "MSBUILD=dotnet"
+set "GAME_DIR=%STRONGHOLD_GAME_DIR%"
 set "GAME_SCRIPT_EXTENDER_DIR=%GAME_DIR%\BepInEx\plugins\000shcdese"
 
 if not exist "%GAME_DIR%\BepInEx\core\BepInEx.dll" (

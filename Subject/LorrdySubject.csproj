@@ -5,7 +5,7 @@
         <OutputType>Library</OutputType>
         <LangVersion>latest</LangVersion>
         
-        <UnityLibsPath>G:\SteamLibrary\steamapps\common\Stronghold Crusader Definitive Edition</UnityLibsPath>
+        <UnityLibsPath>$(STRONGHOLD_GAME_DIR)</UnityLibsPath>
         <GUID>LorrdySubject</GUID>
     </PropertyGroup>
 
