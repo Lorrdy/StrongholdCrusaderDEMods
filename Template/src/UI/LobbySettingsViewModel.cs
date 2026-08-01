@@ -23,4 +23,16 @@ public class LobbySettingsViewModel : LobbyModSettingsBaseViewModel
         }
     }
     private bool _modEnabled = true;
+
+    [SyncHostOnly]
+    public int NumberToPick
+    {
+        get => _numberToPick;
+        set
+        {
+            _numberToPick = value;
+            OnPropertyChanged(nameof(NumberToPick));
+        }
+    }
+    private int _numberToPick = 0;
 }
